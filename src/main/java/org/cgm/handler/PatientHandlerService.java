@@ -32,8 +32,7 @@ public class PatientHandlerService {
     }
 
     public Uni<Long> delete(UUID uuid) {
-        UUID fail = UUID.fromString("00000000-0000-0000-0000-000000000000");
-        return this.patientService.get(fail)
+        return this.patientService.get(uuid)
                 .onItem().ifNull().failWith(PatientNotFound::new)
                 .onFailure().retry()
                 .withBackOff(Duration.ofMillis(100), Duration.ofSeconds(1))
