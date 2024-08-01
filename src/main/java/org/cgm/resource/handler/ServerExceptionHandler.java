@@ -1,5 +1,6 @@
 package org.cgm.resource.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.cgm.core.enumeration.ErrorEnum;
 import org.cgm.core.exceptions.config.TipsiException;
 import org.cgm.core.models.Error;
@@ -12,6 +13,7 @@ import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 
 @ApplicationScoped
+@Slf4j
 public class ServerExceptionHandler {
 
     @ConfigProperty(name = "service.name")
@@ -20,6 +22,7 @@ public class ServerExceptionHandler {
     @ServerExceptionMapper
     public Uni<Response> exceptionHandler(Exception exception) {
 
+        log.error("Ooooooops, error {} {}", exception, exception.getMessage());
         if (exception instanceof TipsiException tipsiException) {
 
             ErrorEnum error = tipsiException.getError();
