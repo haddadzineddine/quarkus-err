@@ -5,16 +5,16 @@ import org.cgm.core.enumeration.ErrorEnum;
 import lombok.Getter;
 
 @Getter
-public class TipsiException extends RuntimeException {
+public class LocalException extends RuntimeException {
     final ErrorEnum error;
     final String description;
 
-    public TipsiException(ErrorEnum error, String description) {
+    public LocalException(ErrorEnum error, String description) {
         this.error = error;
         this.description = description;
     }
 
-    public TipsiException(ErrorEnum error) {
+    public LocalException(ErrorEnum error) {
         this.error = error;
         this.description = error.getDescription();
     }

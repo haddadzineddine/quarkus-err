@@ -2,7 +2,7 @@ package org.cgm.resource.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.cgm.core.enumeration.ErrorEnum;
-import org.cgm.core.exceptions.config.TipsiException;
+import org.cgm.core.exceptions.config.LocalException;
 import org.cgm.core.models.Error;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.resteasy.reactive.server.ServerExceptionMapper;
@@ -23,16 +23,16 @@ public class ServerExceptionHandler {
     public Uni<Response> exceptionHandler(Exception exception) {
         log.error("Error {} {}", exception, exception.getMessage());
 
-        if (exception instanceof TipsiException tipsiException) {
+        if (exception instanceof LocalException localException) {
 
-            ErrorEnum error = tipsiException.getError();
+            ErrorEnum error = localException.getError();
             Response.Status status = this.findStatus(error);
 
             return Uni.createFrom().item(Response.status(status)
                     .entity(Arrays.asList(Error.builder()
                             .code(error.getCode())
                             .message(error.getMessage())
-                            .description(tipsiException.getDescription())
+                            .description(localException.getDescription())
                             .build()))
                     .build());
 
