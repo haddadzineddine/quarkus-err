@@ -21,8 +21,8 @@ public class ServerExceptionHandler {
 
     @ServerExceptionMapper
     public Uni<Response> exceptionHandler(Exception exception) {
+        log.error("Error {} {}", exception, exception.getMessage());
 
-        log.error("Ooooooops, error {} {}", exception, exception.getMessage());
         if (exception instanceof TipsiException tipsiException) {
 
             ErrorEnum error = tipsiException.getError();
