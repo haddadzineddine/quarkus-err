@@ -1,0 +1,32 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="zineddine" id="1">
+        <createTable tableName="patients">
+            <column name="uuid" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="patients_pkey" />
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+        
+        </createTable>
+
+    </changeSet>
+
+
+    <changeSet author="zineddine" id="2" context="!production">
+        <sqlFile dbms="postgresql"
+            encoding="UTF-8"
+            endDelimiter=";"
+            path="sql/patient.sql"
+            relativeToChangelogFile="false"
+            splitStatements="true"
+            stripComments="true" />
+
+    </changeSet>
+</databaseChangeLog>
